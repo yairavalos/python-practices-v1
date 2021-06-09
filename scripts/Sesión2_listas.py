@@ -58,6 +58,7 @@ ejemplo_mario[3].remove(1)
 mi_lista_1 = [1, 2, 3]
 mi_lista_2 = [1, 3]
 mi_lista_1.append( mi_lista_2)
+print(mi_lista_1)
 #[1, 2, 3, [1, 3]]
 mi_lista_1.index(3)
 mi_lista_1.index([1, 3])
@@ -95,7 +96,7 @@ mi_lista_1.sort()
 
 
 ### índices, otra vez!!
-[inicio:(fin + 1):salto]
+# [inicio:(fin + 1):salto]
 x = [1, 2, 1, 2, 2, 1, 1, 2, 1, 2, 2, 1,3] # 13
 x[::] #todo los elemtos
 x[1::] # del elemento 1 al len(x) - 1
@@ -112,6 +113,7 @@ x[::-1][0] # último elemento
 # map
 
 
+# filter
 
 # del
 
@@ -156,7 +158,7 @@ x[0] = "No es par" #Se equivocaron y en un par pusieron texto!!!!!
 
 
 
-[ for variable_que_recorre_el_for in objeto_iterable if condicion depende variable_que_recorre_el_for]
+#[ for variable_que_recorre_el_for in objeto_iterable if condicion depende variable_que_recorre_el_for]
 
 activado = False
 x = 1 if activado else 0
