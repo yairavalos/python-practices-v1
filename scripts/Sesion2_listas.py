@@ -142,83 +142,8 @@ x[::-1][0] # último elemento
 list(map(lambda x: x + 10, x))
 #[11, 12, 11, 12, 12, 11, 11, 12, 11, 12, 12, 11, 13]
 
-# filter
+#filter
 list(filter(lambda x: x >= 2, x))
-
-# del
-
-
-### for en listas
-for i in range(100):
-    print(i)
-
-lista_con_for = [i * 100 for i in range(100)]
-### if en listas
-i = 100
-### para obtener los números pares
-[i for i in range(100) if i % 2 == 0]
-### para obtener los números impares
-### not, !=
-[i for i in range(100) if not i % 2 == 0]
-[i for i in range(100) if i % 2 != 0]
-
-
-### else en listas
-x = [i if i % 2 == 0 else "No es par" for i in range(100) ]
-
-### for usando listas
-#a lista anterior sumarle 1 a los números enteros
-[i + 1 for i in x if isinstance(i,int)]
-[i + 1 for i in x if i % 2 == 0] #error por tratar de usar módulo con un str
-[x[i] + 1 for i in range(len(x)) if i % 2 == 0]
-
-x[0] = "No es par" #Se equivocaron y en un par pusieron texto!!!!!
-[i + 1 for i in x if isinstance(i,int)]
-[x[i] + 1 for i in range(len(x)) if i % 2 == 0]
-
-
-[i + 1 if isinstance(i,int) else x[i] for i in x ] #error
-[i + 1 if isinstance(i,int) else i for i in x ]
-[i if isinstance(i,str) else i + 1 for i in x ]
-[i if isinstance(i,str) else x[i] + 1 for i in x ]
-
-[u for u in x]
-
-[i for i in x]
-
-
-
-#[ for variable_que_recorre_el_for in objeto_iterable if condicion depende variable_que_recorre_el_for]
-
-activado = False
-x = 1 if activado else 0
-x
-
-
-
-activado = False
-[i for i in range(100) if activado]
-
-activado = True
-[i for i in range(100) if activado]
-
-[i  if activado else 0 for i in range(100)]
-activado = False
-[i  if activado else 0 for i in range(100)]
-
-
-
-
-### promedio
-
-
-### mediana
-
-
-### moda
-
-
-### ordenar
 
 # del
 
