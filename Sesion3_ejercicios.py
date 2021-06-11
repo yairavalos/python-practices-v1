@@ -1,25 +1,12 @@
-### 1 Crear dos variables que representen dos productos, asignarle un precio 
-# sin iva
+### 1 Crear dos variables que representen dos productos, asignarle un precio
 
-product1 = [0,100,0,0]
-product2 = [0,200,0,0]
-
-totalProd = [0,0,0,0]
-
-product1 = [product1[1]*0.16,100,(product1[1]*0.16)+product1[1],product1[1]*0.16]
-print(product1)
-
-product2 = [product2[1]*0.16,200,(product1[2]*0.16)+product1[2],product1[2]*0.16]
-print(product2)
-
-totalProd = [product1[0]+product2[0],product1[1]+product2[1],product1[2]+product2[2],product1[3]+product2[3]]
-print(totalProd)
 
 ### 2 Aplicarle iva (16% adicional del precio)
-iva = 0
-precio = 0 
-valor_total = 0
-impuesto_total = 0
+iva = 
+precio = 
+valor_total = 
+impuesto = 
+valor_total = 
 
 
 ### 3 Calcular el precio total de una pieza por producto
@@ -38,17 +25,10 @@ impuesto_total = 0
 
 
 ### for en listas
-for i in range(5,100):
+for i in range(100):
     print(i)
 
 lista_con_for = [i * 100 for i in range(100)]
-lista_con_for
-
-lista_con_for = [str(i) for i in range(100)]
-lista_con_for
-
-lista_con_for = [str(i) for i in [10, 11, 12]]
-lista_con_for
 ### if en listas
 i = 100
 ### para obtener los números pares
@@ -56,24 +36,11 @@ i = 100
 ### para obtener los números impares
 ### not, !=
 [i for i in range(100) if not i % 2 == 0]
-[str(i) for i in range(100) if i % 2 != 0]
-[1 for i in range(100) if i % 2 != 0]
-
+[i for i in range(100) if i % 2 != 0]
 
 
 ### else en listas
 x = [i if i % 2 == 0 else "No es par" for i in range(100) ]
-x
-#Usando la sintaxis de la lista anterior filtrar valores menos a 80
-x = [i if i % 2 == 0 else "No es par" for i in range(100) if i < 80]
-x = [i if i % 2 == 0 else "No es par" for i in range(100) if 2 < 3]
-x
-
-
-#lo ideal es x = [i if i % 2 == 0 else "No es par" for i in range(80) ]
-
-                                            
-x
 
 ### for usando listas
 #a lista anterior sumarle 1 a los números enteros
@@ -97,9 +64,9 @@ x[0] = "No es par" #Se equivocaron y en un par pusieron texto!!!!!
 
 
 
-#[ for variable_que_recorre_el_for in objeto_iterable if condicion depende variable_que_recorre_el_for]
+[ for variable_que_recorre_el_for in objeto_iterable if condicion depende variable_que_recorre_el_for]
 
-activado = True
+activado = False
 x = 1 if activado else 0
 x
 
@@ -132,31 +99,29 @@ activado = False
 
 
 ### 8 Crear una lista (l_nombres) con los nombres de 5 compañeros
-l_nombres = ["Yair","Ferdinand","Rosy","Ivan","Toño"]    
+l_nombres = []    
 print(l_nombres)
 
 ### 9 Crear una lista (l_dato) con el tiempo que tardan a llegar el trabajo
 ### o edad
-l_dato=[40,30,25,21,27]
-print("edad: ",l_dato)
+l_dato=[]
+print("minutos",l_dato)
 
 ### 10 Cambiar el tiempo (edad) del 3er compañero
-l_dato[2] = 22
-print(l_dato[2])
+l_dato
+
 
 
 ### Mostrar los compañeros con menos de 26 años (minutos)
-l_anios26 = [l_nombres[i] for i in range(len(l_dato)) if l_dato[i] < 26 ]
-print(l_anios26)
+
 
 ### Crear una lista con los compañeros de horas de sueño promedio
-l_nombres2 = l_nombres[::-1]
-print(l_nombres2)
-l_horas = [7,8,5,6,5]
+l_nombres2 = 
+l_horas = 
 print(l_horas)
 
-### Mostrar los compañeros que sólo duermen más de 8 horas
-l_mas8=[l_nombres2[i] for i in range(len(l_horas)) if l_horas[i] >=6]
+### Mostrar los compañeros que sólo duermen mas de 8 horas
+l_mas8=[l_nombres2[i] for i in range(len(l_horas)) if l_horas[i] >=8]
 print(l_mas8)
 
 ### Mostrar los compañeros que sólo duermen menos de 8 horas y a los que
