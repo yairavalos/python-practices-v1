@@ -112,29 +112,31 @@ activado = False
 
 
 ### 8 Crear una lista (l_nombres) con los nombres de 5 compañeros
-l_nombres = []    
+l_nombres = ["Yair","Ferdinand","Rosy","Ivan","Toño"]    
 print(l_nombres)
 
 ### 9 Crear una lista (l_dato) con el tiempo que tardan a llegar el trabajo
 ### o edad
-l_dato=[]
-print("minutos",l_dato)
+l_dato=[40,30,25,21,27]
+print("edad: ",l_dato)
 
 ### 10 Cambiar el tiempo (edad) del 3er compañero
-l_dato
-
+l_dato[2] = 22
+print(l_dato[2])
 
 
 ### Mostrar los compañeros con menos de 26 años (minutos)
-
+l_anios26 = [l_nombres[i] for i in range(len(l_dato)) if l_dato[i] < 26 ]
+print(l_anios26)
 
 ### Crear una lista con los compañeros de horas de sueño promedio
-l_nombres2 = 
-l_horas = 
+l_nombres2 = l_nombres[::-1]
+print(l_nombres2)
+l_horas = [7,8,5,6,5]
 print(l_horas)
 
 ### Mostrar los compañeros que sólo duermen más de 8 horas
-l_mas8=[l_nombres2[i] for i in range(len(l_horas)) if l_horas[i] >=8]
+l_mas8=[l_nombres2[i] for i in range(len(l_horas)) if l_horas[i] >=6]
 print(l_mas8)
 
 ### Mostrar los compañeros que sólo duermen menos de 8 horas y a los que
