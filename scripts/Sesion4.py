@@ -86,17 +86,6 @@ otherSet1 = noChilangos.intersection(noIngenieros)
 print(otherSet1)
 
 
-"""
-    Ejercicios visto en clase Sesión 5
-
-"""
-
-lista_lista = [1,2,3,4,5]
-validar_lista = len([1 for myResult in lista_lista if isinstance(myResult,list) ]) > 0
-print(validar_lista)
-
-
-
 
 
 
