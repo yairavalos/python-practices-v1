@@ -1,6 +1,6 @@
-#Funciones
-def nombre_funcion(parametros):
-   código
+# Funciones
+# def nombre_funcion(parametros):
+#   código
  
 def suma(x, y):
    return(x + y)
