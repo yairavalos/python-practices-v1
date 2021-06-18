@@ -9,6 +9,10 @@
 # accuaracy, damage, distance
 # speed -> mts / sec ó resolucion
 
+
+# Classes Definition:
+# ------------------------------------------------------------------------------------------------------------
+
 class Battle_Field():
 
     def __init__(self, large):
@@ -16,7 +20,7 @@ class Battle_Field():
         self.center = large/2
 
     def calculate_dis(self, pos1, pos2):
-        self.distance = pos2 - pos1
+        self.distance = abs(pos2 - pos1)
         return self.distance
 
     def calculate_pos(self, pos, speed, direction):
@@ -40,29 +44,35 @@ class Warrior():
         self.pos = initialPos
         self.direction = direction
         self.distance = 0
-        self.enemy
 
-    def engage(self, enemy: Warrior):
+    def engage(self, enemy):
         self.enemy = enemy
 
     def endurance(self, myDamage):
         self.live -= self.live * myDamage
-        self.strength *= self.live * self.shield.calculate_agility()
-        self.speed *= self.live * self.shield.calculate_agility()
+        self.strength -= self.strength * myDamage
+        self.speed = self.speed * self.live * self.shield.calculate_agility()
+        print(f'Endurace for {self.warrior_name} is live: {self.live * 100}%, strength: {self.strength * 100}%, speed: {self.speed} mts per advance')
 
     def advance(self, direction, myBattleField: Battle_Field):
         self.direction =  direction
         self.pos = myBattleField.calculate_pos(self.pos, self.speed, self.direction)
-        self.distance = myBattleField.calculate_dis(self.distance, self.enemy.distance)
+        self.distance = myBattleField.calculate_dis(self.pos, self.enemy.pos)
+        print(f'Advance results for {self.warrior_name} are direction to the: {self.direction}, Position: {self.pos} mts from central position, Distance: {self.distance} mts against the enemy')
 
-    def attack(self, enemy: Warrior):
-        enemy.deffense(self.weapon.calculate_damage())
+    def attack(self, enemy):
+        self.attack_power = self.weapon.calculate_damage(self.distance,self.strength)
+        print(f'{self.warrior_name} is attacking with {self.attack_power * 100}% of power with {self.weapon.weapon_name} as weapon') 
+        enemy.deffense(self.attack_power)
         
     def deffense(self, attack_damage):
-        self.endurance(self.shield.calculate_coverage(attack_damage))
+        self.protection = self.shield.calculate_coverage()
+        print(f'Protecting {self.protection * 100}% to {self.warrior_name} with a {self.shield.size} shield has {attack_damage * self.protection * 100}% of damage as a result')
+        self.endurance(attack_damage * self.protection)
 
     def report_status(self):
-        pass
+        print(f'Warrior:{self.warrior_name} | Weapon: {self.weapon.weapon_name} | Shield: {self.shield.size} | Position: {self.pos} mts | Direction: {self.direction}')
+        self.endurance(0)
 
 
 class Weapon():
@@ -87,13 +97,10 @@ class Weapon():
             self.reach = 15
 
     def calculate_damage(self, distance, strength):
-        self.distance = distance
-        self.strength = strength
-        self.damage = self.accuaracy * self.strength * (self.reach / self.distance)
-        return self.damage
+        return self.accuaracy * strength * (self.reach / distance)
 
     def report(self):
-        pass
+        print(f'Weapon Name: {self.weapon_name} | Accuaracy {self.accuaracy * 100}% | Reach: {self.reach} mts')
 
 
 class Shield():
@@ -118,54 +125,69 @@ class Shield():
             return 0.25
 
     def report(self):
-        pass
+        print(f'Shield Size: {self.size} | Coverage of: {self.calculate_coverage() * 100}% | Agility of: {self.calculate_agility() * 100}%')
 
 
-theBattleField = Battle_Field(200)
+# Game Objects Initialization:
+# ------------------------------------------------------------------------------------------------------------
+
+theBattleField = Battle_Field(40)
 
 weapon1 = Weapon("sword")
-weapon1.report()
-
 weapon2 = Weapon("archery")
-weapon2.report()
 
 shield1 = Shield("medium")
-shield1.report()
-
 shield2 = Shield("small")
-shield2.report()
 
-warrior1 = Warrior("knigth",weapon1,shield1, 0.95, 1, -75)
+print("------------------------------------------------------------------------------------------------------------")
+print("Warrior 1 Introduction:")
+print("------------------------------------------------------------------------------------------------------------")
+warrior1 = Warrior("knigth",weapon1,shield1, 0.95, 1, -15, "right")
 warrior1.report_status()
+warrior1.weapon.report()
+warrior1.shield.report()
+print("------------------------------------------------------------------------------------------------------------")
+print("\n")
 
-warrior2 = Warrior("elfo",weapon2,shield2, 0.75, 2, 90)
+print("------------------------------------------------------------------------------------------------------------")
+print("Warrior 2 Introduction:")
+print("------------------------------------------------------------------------------------------------------------")
+warrior2 = Warrior("elfo",weapon2,shield2, 0.75, 2, 17, "left")
 warrior2.report_status()
+warrior2.weapon.report()
+warrior2.shield.report()
+print("------------------------------------------------------------------------------------------------------------")
+print("\n")
 
 warrior1.engage(warrior2)
 warrior2.engage(warrior1)
+
+
+# Main Program Flow:
+# ------------------------------------------------------------------------------------------------------------
 
 counter = 1
 user_action = ""
 user_direction = ""
 
-while counter < 20:
-
+while counter < 20 and user_action !=4 :
+    
     if counter %2 != 0:
 
         print("Its Warrior 1 turn")
-        user_action = input("What do you wanna do ?? 1 for advance or 2 for attack")
+        user_action = input("What do you wanna do ?? 1 for advance, 2 for attack, 3 for report, 4 for Quit ---> ")
 
         if user_action == "1":
             
-            user_direction = input("What direction do you wanna go ?? 1 for left or 2 for right")
+            user_direction = input("What direction do you wanna go ?? 1 for left or 2 for right ---> ")
             
             if user_direction == "1":
                 print("Warrior 1 is advancing to the left")
-                warrior1.advance("left")
+                warrior1.advance("left",theBattleField)
 
             elif user_direction == "2":
                 print("Warrior 1 is advancing to the right")
-                warrior1.advance("right")
+                warrior1.advance("right",theBattleField)
 
             else:
                 print("Warrior 1 has lost his chance to advance")
@@ -174,6 +196,10 @@ while counter < 20:
             print("Warrior 1 is ATTACKING !!! ")
             warrior1.attack(warrior2)
 
+        elif user_action == "3":
+            print("Warrior 1 Report ")
+            warrior1.report_status()
+
         else:
             print("Warrior 1 has lost his chance for any action")
 
@@ -181,19 +207,19 @@ while counter < 20:
     if counter %2 == 0:
         
         print("Its Warrior 2 turn")
-        user_action = input("What do you wanna do ?? 1 for advance or 2 for attack")
+        user_action = input("What do you wanna do ?? 1 for advance, 2 for attack, 3 for report, 4 for Quit ---> ")
 
         if user_action == "1":
             
-            user_direction = input("What direction do you wanna go ?? 1 for left or 2 for right")
+            user_direction = input("What direction do you wanna go ?? 1 for left or 2 for right ---> ")
             
             if user_direction == "1":
                 print("Warrior 2 is advancing to the left")
-                warrior2.advance("left")
+                warrior2.advance("left",theBattleField)
 
             elif user_direction == "2":
                 print("Warrior 2 is advancing to the right")
-                warrior2.advance("right")
+                warrior2.advance("right",theBattleField)
 
             else:
                 print("Warrior 2 has lost his chance to advance")
@@ -201,6 +227,10 @@ while counter < 20:
         elif user_action == "2":
             print("Warrior 2 is ATTACKING !!! ")
             warrior2.attack(warrior1)
+
+        elif user_action == "3":
+            print("Warrior 2 Report ")
+            warrior2.report_status()
 
         else:
             print("Warrior 2 has lost his chance for any action")
