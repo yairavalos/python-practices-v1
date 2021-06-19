@@ -31,6 +31,55 @@ class Battle_Field():
             self.newPos -= speed
         return self.newPos
 
+    def display_battle_field(self, leftPos, rightPos):
+        # Handle Positions
+        leftPos = (round(leftPos,0)) + self.center
+        rightPos = (round(rightPos,0)) + self.center
+    
+        # Represent Positions
+        strChain = ""
+        for step in range(self.large):
+            if step == leftPos or step == rightPos:
+                strChain += "|"
+            elif step == self.center:
+                strChain += "."
+            else:
+                strChain += "-"
+        
+        print("\n")
+        print("[" + strChain + "]")
+
+    
+    def display_stamina(self, warrior1, warrior2):
+        # calculate stamina from Warriors
+        stamina1 = round((warrior1.live)*10,0)
+        stamina2 = round((warrior2.live)*10,0)
+
+        # represent stamina with strings
+        strChainA = ""
+        for step in range(10):
+            if step < stamina1:
+                strChainA += "+"
+            else:
+                strChainA += "-"
+
+        strChainB = ""
+        strChainC = ""
+
+        for step in range(10):
+            if step < stamina2:
+                strChainB += "+"
+            else:
+                strChainC += "-"
+        
+        strChainD = ""
+
+        for step in range(self.large - 22):
+            strChainD += " "
+
+        print("[" + strChainA + "]" + strChainD + "[" + strChainC + strChainB + "]")
+        print("\n")
+        print("\n")
 
 class Warrior():
 
@@ -45,8 +94,9 @@ class Warrior():
         self.direction = direction
         self.distance = 0
 
-    def engage(self, enemy):
+    def engage(self, enemy, myBattleField: Battle_Field):
         self.enemy = enemy
+        self.distance = myBattleField.calculate_dis(self.pos, self.enemy.pos)
 
     def endurance(self, myDamage):
         self.live -= self.live * myDamage
@@ -100,7 +150,7 @@ class Weapon():
         return self.accuaracy * strength * (self.reach / distance)
 
     def report(self):
-        print(f'Weapon Name: {self.weapon_name} | Accuaracy {self.accuaracy * 100}% | Reach: {self.reach} mts')
+        print(f'Weapon Name: {self.weapon_name} | Accuaracy of: {self.accuaracy * 100}% | Reach: {self.reach} mts')
 
 
 class Shield():
@@ -142,7 +192,7 @@ shield2 = Shield("small")
 print("------------------------------------------------------------------------------------------------------------")
 print("Warrior 1 Introduction:")
 print("------------------------------------------------------------------------------------------------------------")
-warrior1 = Warrior("knigth",weapon1,shield1, 0.95, 1, -15, "right")
+warrior1 = Warrior("knigth",weapon1,shield1, 0.95, 4, -15, "right")
 warrior1.report_status()
 warrior1.weapon.report()
 warrior1.shield.report()
@@ -152,15 +202,19 @@ print("\n")
 print("------------------------------------------------------------------------------------------------------------")
 print("Warrior 2 Introduction:")
 print("------------------------------------------------------------------------------------------------------------")
-warrior2 = Warrior("elfo",weapon2,shield2, 0.75, 2, 17, "left")
+warrior2 = Warrior("elfo",weapon2,shield2, 0.75, 8, 17, "left")
 warrior2.report_status()
 warrior2.weapon.report()
 warrior2.shield.report()
 print("------------------------------------------------------------------------------------------------------------")
 print("\n")
+print("\n")
 
-warrior1.engage(warrior2)
-warrior2.engage(warrior1)
+warrior1.engage(warrior2, theBattleField)
+warrior2.engage(warrior1, theBattleField)
+
+theBattleField.display_battle_field(warrior1.pos, warrior2.pos)
+theBattleField.display_stamina(warrior1,warrior2)
 
 
 # Main Program Flow:
@@ -170,12 +224,13 @@ counter = 1
 user_action = ""
 user_direction = ""
 
-while counter < 20 and user_action !=4 :
+while counter < 40 and warrior1.live > 0 and warrior2.live > 0:
     
     if counter %2 != 0:
 
+        print("\n")
         print("Its Warrior 1 turn")
-        user_action = input("What do you wanna do ?? 1 for advance, 2 for attack, 3 for report, 4 for Quit ---> ")
+        user_action = input("What do you wanna do ?? 1 for advance, 2 for attack, 3 for report, 4 for Battle Field ---> ")
 
         if user_action == "1":
             
@@ -200,14 +255,19 @@ while counter < 20 and user_action !=4 :
             print("Warrior 1 Report ")
             warrior1.report_status()
 
+        elif user_action == "4":
+            theBattleField.display_battle_field(warrior1.pos, warrior2.pos)
+            theBattleField.display_stamina(warrior1,warrior2)
+
         else:
             print("Warrior 1 has lost his chance for any action")
 
 
     if counter %2 == 0:
         
+        print("\n")
         print("Its Warrior 2 turn")
-        user_action = input("What do you wanna do ?? 1 for advance, 2 for attack, 3 for report, 4 for Quit ---> ")
+        user_action = input("What do you wanna do ?? 1 for advance, 2 for attack, 3 for report, 4 for Battle Field ---> ")
 
         if user_action == "1":
             
@@ -232,6 +292,10 @@ while counter < 20 and user_action !=4 :
             print("Warrior 2 Report ")
             warrior2.report_status()
 
+        elif user_action == "4":
+            theBattleField.display_battle_field(warrior1.pos, warrior2.pos)
+            theBattleField.display_stamina(warrior1,warrior2)
+
         else:
             print("Warrior 2 has lost his chance for any action")
 
@@ -239,4 +303,22 @@ while counter < 20 and user_action !=4 :
     counter += 1
 
 
+print("\n")
+warrior1.report_status()
 
+print("\n")
+warrior2.report_status()
+
+theBattleField.display_battle_field(warrior1.pos, warrior2.pos)
+theBattleField.display_stamina(warrior1,warrior2)
+
+if warrior1.live > warrior2.live:
+    print(f'Warrior 1: {warrior1.warrior_name} its the WINNER !!! ')
+
+if warrior2.live > warrior2.live:
+    print(f'Warrior 2: {warrior1.warrior_name} its the WINNER !!! ')
+
+
+print(" ------------- GAME OVER ---------------- ")
+print("\n")
+print("\n")
