@@ -15,6 +15,7 @@ class Merchandise():
         self.calories = message_str
         self.__price = price
         self.__discount = discount
+        self.__final_price = 0
         self.__stock = stock_qty
         
     # methods:
@@ -23,6 +24,10 @@ class Merchandise():
 
     def get__discount(self):
         return self.__discount
+
+    def get__final_price(self):
+        self.__final_price = round(self.__price - (self.__price * self.__discount),2)
+        return self.__final_price
 
     def get__stock(self):
         return self.__stock
@@ -36,6 +41,9 @@ class Merchandise():
 
     def remove_stock(self, qty):
         self.__stock -= qty
+
+    def print_price(self):
+        print(f'The price for {self.product_name} is {self.get__price()} has a discount of {self.get__discount()} then the final price is: {self.get__final_price()}')
 
     def print_stock(self):
         print(f'This is the remaining stock of -- {self.product_name} -- with a quantity of -- {self.__stock} -- unit(s)')
@@ -66,8 +74,8 @@ class Snack(Merchandise):
     def remove_stock(self, qty):
         return super().remove_stock(qty)
     
-    def print_stock(self):
-        return super().print_stock()
+    #def print_stock(self):
+        #return super().print_stock()
 
 
 ### Crea la clase Tarjetas,
@@ -83,9 +91,9 @@ import datetime
 
 class accountCard():
     # attributes -> initialized through constructor to avoid be modified by other instancies
-    def __init__(self):
-        self.owner_name = "Victor Yair AValos Morales"
-        self.expire_date = "09-27-2021"
+    def __init__(self,user_name,expiration_date):
+        self.owner_name = user_name
+        self.expire_date = expiration_date
         self.__balance = 0.00
 
         self.purchase_log = []
@@ -99,7 +107,7 @@ class accountCard():
 
     def payment(self, product:Merchandise, product_qty:int, purchase_date:datetime):
 
-        self.product_cost = product.get__price() * product.get__discount() * product_qty
+        self.product_cost = product.get__final_price() * product_qty
         
         if product.get__stock() >= product_qty:
 
@@ -110,14 +118,19 @@ class accountCard():
                 product.remove_stock(product_qty)
 
                 self.purchase_log.append(product.product_name)
-                self.purchase_amount_log.append(self. product_cost)
+                self.purchase_amount_log.append(self.product_cost)
                 self.purchase_date_log.append(purchase_date)
             
             else:
+                print_line()
                 print("There is not enough Money to do the purchase")
+                print_line()
         
         else:
+            print_line()
             print(f'There is not enough stock for {product.product_name}, stock is {product.get__stock()}')
+            print_line()
+
 
     def deposit(self, amount, deposit_date):
 
@@ -127,7 +140,13 @@ class accountCard():
         self.deposit_date_log.append(deposit_date)
 
     def print_balance(self):
-        [print(f'Your current balance is: {self.__balance} pesos')]
+        print_line()
+        [print(f'Your current balance is: {round(self.__balance,2)} pesos')]
+        print_line()
+
+    def print_balance_logfile(self):
+        print_line()
+        [print(f'Your current balance is: {round(self.__balance,2)} pesos')]
         print_line()
         print("This is your balance log file")
         print_line()
@@ -136,7 +155,7 @@ class accountCard():
         print("This is your expenses log: ")
         print_line()
         if len(self.purchase_log) > 0:
-            [print(f'Purchase: {purchase}, Price: {price}, Purchase Date {datelog}' for purchase, price, datelog in zip(self.purchase_log, self.purchase_amount_log, self.purchase_date_log))]
+            [print(f'Purchase: {purchase}, Price: {round(price,0)}, Purchase Date {datelog}') for purchase, price, datelog in zip(self.purchase_log, self.purchase_amount_log, self.purchase_date_log)]
         else:
             print("There is not any expense movement in the current period")
         print_line()
@@ -164,7 +183,7 @@ product1.print_stock()
 product2 = Snack("Maruchan","Shrimp and Chili","Medium Level of Calories",17.53,0.05,200)
 product2.print_stock()
 
-creditCard1 = accountCard()
+creditCard1 = accountCard("Victor Yair Avalos Morales","2021-09-27")
 creditCard1.deposit(1000,datetime.datetime.now())
 creditCard1.print_balance()
 
@@ -190,12 +209,12 @@ product_qty = 0
 
 while counter <= 20:
 
-    user_action = input("What do you want to do: 1 for Deposit, 2 for Purchase, 3 for Stock Report --- ")
+    user_action = input("What do you want to do: 1 for Deposit, 2 for Purchase, 3 for Price Validation, 4 for Stock Report, 5 for Balance Report --- ")
 
     if user_action == "1":
 
         deposit_amount = float(input("Please provide the Amount of Money that you want to deposit:"))
-        creditCard1.deposit()
+        creditCard1.deposit(deposit_amount,datetime.datetime.now())
         creditCard1.print_balance()
 
     elif user_action == "2":
@@ -214,14 +233,27 @@ while counter <= 20:
         print_line()
         product1.print_stock()
         product2.print_stock()
+        print_line()
 
     elif user_action == "3":
+        print_line()
+        product1.print_price()
+        product2.print_price()
+        print_line()
+    
+    elif user_action == "4":
+        print_line()
         print("This is The Stock Report:")
         print_line()
         product1.print_stock()
         product2.print_stock()
         print_line()
-        
+
+    elif user_action == "5":
+        print_line()
+        creditCard1.print_balance_logfile()
+        print_line()
+
     else:
         print("There is no such action, select another one")
 
