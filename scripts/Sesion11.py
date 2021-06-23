@@ -1,4 +1,7 @@
 ### try
+from typing import final
+
+
 try:
    pass
 except:
@@ -7,36 +10,48 @@ except:
 0/0
 texto
 2+1
+
+
 try:
    0/0
+   ###
    texto
 except NameError:
    print("algo salió mal con la variable que estas consultando")
 except ZeroDivisionError:
    print("Error, no puedes dividir entre cero")
+
+
 try:
-   0/0
+   #0/0
    texto
-except (ZeroDivisionError, NameError):
-   print("algo salió mal con la variable que estas consultando")
+   lista = [0]
+   lista[2]
+except (ZeroDivisionError, NameError) as e:
+   print(f"algo salió mal {e}")
 except:
    print("Error desconocido")
-ZeroDivisionError:
-NameError:
+print("Continuando la ejecución")
+
+
+
 lista = [1, 2]
+lista[2]
+#print("Continuando la ejecución")
+
 try:
    lista[2]
 except IndexError:
    print("Estás fuera de rango, Loco!")
-try:
-   0/0
-   texto
-except:
-   print("algo salió mal con la variable que estas consultando")
+
+
 try:
    0/0
 except Exception as e:
+   #print(help(e.with_traceback))
    print(f'El error que te ocurrió es: {e}')
+
+
 ### else
 try:
    0/0
@@ -45,6 +60,8 @@ except:
    print("DIvisión entre cero")
 else:
    x += 1
+
+
 try:
    x = 1
 except NameError:
@@ -54,6 +71,22 @@ except ZeroDivisionError:
 else:
    x += 1
 print(x)
+
+
+class Prueba():
+   def __init__(self, num):
+      if isinstance(num, int) or isinstance(num, float):
+         self.num = num
+      else:
+         raise
+
+try:
+   prueba = Prueba("dt")
+except:
+   print("no se creo la variable")
+
+
+
 try:
    x = 1
 except ZeroDivisionError:
@@ -72,19 +105,28 @@ colores = { 'rojo':'red', 'verde':'green', 'negro':'black' }
 colores['blanco']
 #4
 resultado = 15 + "20"
+
+### Respuesta Ejercicio 1
 error = True
 try:
    x = 1
    x = x /0
    error = False
 except ZeroDivisionError:
-   print("DIvisión entre cero")
-   del x
+   print("División entre cero")
+   #del x
 else:
    x = x ** 2
 finally:
    if error:
-       del x
+      del x
+
+
+
+
+
+
+
 ### Creación de paquetes, Python es poderoso por sus paquetes
 ### Organizar código
 ### Reutilizar código
