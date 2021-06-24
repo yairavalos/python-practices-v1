@@ -113,14 +113,19 @@ def division(x, y):
 ### JSON
 
 import json
-json.dumps({'4': 5, '6': 7}, sort_keys=True)
+myJSON = json.dumps({'4': 5, '6': 7}, sort_keys=True)
 print(json.dumps({'4': 5, '6': 7}, sort_keys=True, indent=4))
 print(json.dumps({'4': 5, '6': 7}, sort_keys=True, indent=4))
-json.loads('["elemento1", {"llave2":["test", null, 1.0, 2]}]')
+myJSON1 = json.loads('["elemento1", {"llave2":["test", null, 1.0, 2]}]')
+myJSON2 = json.loads('["amigo", "prueba", "esto"]')
+myJSON3 = json.loads('[{"key1":"value1","key2":"value2","key3":"value3"}]')
 
 ### Abrir archivos
 #archivo-salida.py
-f = open('holamundo.txt','wt') ### importante ver wb
+import os
+os.getcwd()
+
+f = open('/holaquetal.txt','wt') ### importante ver wb
 f.write('hola mundo')
 f.close()
 
