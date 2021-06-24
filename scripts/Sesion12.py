@@ -16,29 +16,34 @@
 # import paquete as pkg
 # from paquete import funcion1, funcion2
 # from paquete import *
-from paquete_especial import *
-import paquete_especial
+from paquete_especial import * #(x)
+import paquete_especial #paquete_especial.x
+
+
+
 import mi_paquete ## Carga todas las funciones
 mi_paquete.suma(12, 13)
 import mi_paquete as my_pkg ## Carga todas las funciones con alias
 my_pkg.suma(13, 5)
-from mi_paquete import suma, resta as suma_mi_paquete, resta_mi_pequete## Carga funciones especificas
-suma(13, 14)
+from mi_paquete import suma as suma_mi_paquete## Carga funciones especificas
+suma_mi_paquete(13, 14)
+from mi_paquete import resta
 resta(13, 13)
+
 from mi_paquete import *
 suma(13, 14)
 suma("12", 13)
 
 
-from mi_python.ejercicios import hola_mundo as hm
-
+from mi_python.ejercicios import pi #as hm
+from mi_python.sub_my_python.test import pi
 
 
 ### Dates
 import datetime
 
 x = datetime.datetime.now()
-print(x) 
+print(x)
 
 import datetime
 
@@ -46,7 +51,7 @@ x = datetime.datetime.now()
 
 print(x.year)
 print(x.weekday())
-print(x.strftime("%A")) 
+print(x.strftime("%d/%m/%Y")) 
 
 
 dir(x)
@@ -64,24 +69,24 @@ x.strftime("%Y/%b")
 import datetime
 
 x = datetime.datetime(2020, 5, 17, 14, 30, 12)
+x
 x = datetime.datetime.now()
 x
+
+
 import pickle
-f = open("fecha_actual.pkl", "wb")
+f = open("../fecha_actual.pkl", "wb")
 pickle.dump(x,f)
 f.close()
 
-f = open("fecha_actual.pkl", "rb")
+f = open("../fecha_actual.pkl", "rb")
 x_load = pickle.load(f)
 f.close()
 x_load
 
 
-
-
-
 y = datetime.datetime(2020, 5, 18, 14, 30, 12)
-delta = y - x
+delta =  x - y
 y + delta
 print(x) 
 
@@ -94,9 +99,9 @@ print(x)
 
 ### Math
 import math
-math.ceil(3.0001)
-math.floor(3.99999)
-math.trunc(3.99999)
+math.ceil(3.0001) #-> 4
+math.floor(3.99999)  # -> 3
+math.trunc(3.99999)  # -> 3
 x = 10
 y = -10
 x + y
@@ -113,9 +118,10 @@ def division(x, y):
 ### JSON
 
 import json
-json.dumps({'4': 5, '6': 7}, sort_keys=True)
+json.dumps({'6': 5, '4': 7}, sort_keys=True)
+print(json.dumps({'4': 5, '6': 7}, sort_keys=True))
 print(json.dumps({'4': 5, '6': 7}, sort_keys=True, indent=4))
-print(json.dumps({'4': 5, '6': 7}, sort_keys=True, indent=4))
+print(json.dumps(['4', 5, '6', 7], sort_keys=True, indent=4))
 json.loads('["elemento1", {"llave2":["test", null, 1.0, 2]}]')
 
 ### Abrir archivos
@@ -124,16 +130,32 @@ f = open('holamundo.txt','wt') ### importante ver wb
 f.write('hola mundo')
 f.close()
 
-f = open ('test.json','r') ### importante ver wb
+f = open ('./data/test.json','r') ### importante ver wb
 datos_json = json.load(f)
 datos_json
 f.close()
+print(type(datos_json))
 
-
+import os
+os.getcwd()
 f = open ('holamundo.txt','r')
 mensaje = f.read()
 f.close()
 print(mensaje)
+
+f = open ('./data/test.json','r')
+mensaje = f.read()
+f.close()
+print(mensaje)
+print(type(mensaje))
+
+json.loads(mensaje)
+
+
+### Ejercicio Crear un archivo que se llame prueba.py y ejecute print("Hello world")
+p = open("prueba.py", "wt")
+p.write("print('Hello world')")
+p.close()
 
 
 f = open('holamundo.txt','a')
@@ -141,15 +163,17 @@ f.write('\n' + 'Hola Mundo')
 f.close()
 
 
-f = open ('test.json','wt')
+f = open ('data/test1.json','wt')
 f.write(json.dumps(datos_json, indent=4))
 f.close()
+
+
 
 diccionario_nuevo = {
     "producto1": 12
 }
 
-f = open('test.json', "a")
+f = open('./data/test1.json', "a")
 f.write("\n" + json.dumps(diccionario_nuevo, indent=4))
 f.close()
 
@@ -180,12 +204,15 @@ f = open("test.json", "a")
 f.write(json.dumps({"pera":11}, indent= 4))
 f.close()
 
+
 ### Propuesta, leerlo
 f = open("test.json", "r")
 var_temp_json = f.read()
 f.close()
+var_temp_json
 ### Volver ese string a diccionario json.loads
 json_temp = json.loads(var_temp_json)
+json_temp
 ### Agregar el nuevo elemento del dict,
 ### es valido usar append al ser un único elemento
 json_temp.append({"pera":11})
@@ -195,12 +222,12 @@ json_temp
 
 ### Guardamos el resultado
 f = open("test.json", "wt")
-f.write(json.dumps(json_temp, indent= 4))
+f.write(json.dumps(json_temp))
 f.close()
 
 
 
-### Propuesta, leerlo
+### Propuesta, leerlo usando json load
 f = open("test.json", "r")
 var_temp_json = json.load(f)
 f.close()
@@ -217,28 +244,32 @@ f.write(json.dumps(json_temp, indent= 4))
 f.close()
 
 
+
+
+
+
+
+
+
 import pickle
 f = open("test.pickle", "wb")
 pickle.dump(json_temp,f)
 f.close()
-
 
 f = open("test.pickle", "rb")
 diccionario_nuevo = pickle.load(f)
 f.close()
 
 
-
-f = open("data.csv", "r")
+f = open("data/test.csv", "r")
 datos = f.read()
 f.close()
 data = [elemento.split(",") for elemento in datos.split("\n")]
 
 
 import pandas as pd
-pd.read_csv("data.csv")
+pd.read_csv("data/test.csv")
 pd.read_pickle("test.pickle")
 df = pd.read_json("test.json")
-
-type(df["json_total"][0])
-df.to_pickle()
+df
+df.to_pickle("test2.pkl")
