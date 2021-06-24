@@ -1,0 +1,12 @@
+{
+    "prop1": "THIS IS THE WAY (Mandalorian)",
+    "prop2": "value2",
+    "prop3": "another value",
+    "prop4": {
+        "sub-prop1": "sub-value1",
+        "sub-prop2": "sub-value2",
+        "sub-prop3": "sub-value3"
+    },
+    "prop5": "modified value 5",
+    "prop6": "modified value 6"
+}

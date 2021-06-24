@@ -125,7 +125,7 @@ myJSON3 = json.loads('[{"key1":"value1","key2":"value2","key3":"value3"}]')
 import os
 os.getcwd()
 
-f = open('/holaquetal.txt','wt') ### importante ver wb
+f = open('PythonG2/scripts/yair_pkg/holaquetal.txt','xt') ### importante ver wb
 f.write('hola mundo')
 f.close()
 
