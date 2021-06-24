@@ -43,7 +43,8 @@ myresult = mypath_list[0].glob('./scripts')
 myresult_list = [item for item in myresult]
 myresult_list
 
-from yair_pkg import my_json
+from yair_pkg.my_json import myJSON
 
-jsonHandler = my_json()
+jsonHandler = myJSON()
+jsonHandler.read_my_json("Test")
 
