@@ -2,6 +2,7 @@
 # Create a module for json handling
 # Create a module for math basis ops
 
+from PythonG2.scripts.yair_pkg import my_maths
 import os
 
 split_dir = os.path.split(os.getcwd())
@@ -43,8 +44,13 @@ myresult = mypath_list[0].glob('./scripts')
 myresult_list = [item for item in myresult]
 myresult_list
 
-from yair_pkg.my_json import myJSON
+
+from PythonG2.scripts.yair_pkg.my_json import myJSON
 
 jsonHandler = myJSON()
 jsonHandler.read_my_json("Test")
 
+from PythonG2.scripts.yair_pkg.my_maths import myMaths
+
+opsHandler = myMaths()
+opsHandler.get_pi()
