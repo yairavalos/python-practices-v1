@@ -348,7 +348,7 @@ class Transporte(object):
 class Terrestre(Transporte):
     def __init__(self, marca, dimensiones, capacidad_usuarios, n_llantas, tipo_terreno):
         super().__init__(marca, dimensiones, capacidad_usuarios)
-        #Transporte.__init__(marca, dimensiones, capacidad_usuarios)
+        #Transporte.__init__(self,marca, dimensiones, capacidad_usuarios)
         self.n_llantas = n_llantas
         self.tipo_terreno = tipo_terreno
     def desplazar(self):
